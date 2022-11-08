@@ -13,7 +13,8 @@ def download_full_schedule(userid: str, userhash: str):
 
     if requests.get(url, verify=False).status_code != 200:
         print("something went wrong!")
-        return
+        return None
     with open(os.getenv("DOWNLOAD_PATH", "downloaded.json"), mode="w") as file:
         json.dump(requests.get(url, verify=False).json(), file)
-    translate_schedule.sort_out_data("downloaded.json", "schedule.json")
+
+    translate_schedule.sort_out_data("downloaded.json")

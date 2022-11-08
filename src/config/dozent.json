@@ -61,7 +61,7 @@
   },
   {
       "name": "Pucklitzsch",
-      "title": "??",
+      "title": "Dr.",
       "alias": [
           "_Puck",
           "Puck"
@@ -121,6 +121,13 @@
       "title": "Prof.",
       "alias": [
           "Nehr"
+      ]
+  },
+  {
+      "name": "Kaiser",
+      "title": "??",
+      "alias": [
+          "Kais"
       ]
   }
 ]

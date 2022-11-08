@@ -1,11 +1,12 @@
 import json
 import os
+from typing import TextIO
 
 unknown_dozent = list()
 PREPEND_TITLES = False
 
 
-def sort_out_data(input_file: str, output_file: str):
+def sort_out_data(input_file: str):
     with open(input_file, mode="r") as i_file:
         sched_data = json.load(i_file)
 
@@ -38,7 +39,7 @@ def sort_out_data(input_file: str, output_file: str):
     for dozent in unknown_dozent:
         print("unknown instructor ", dozent)
 
-    with open(output_file, mode="w") as o_file:
+    with open("schedule.json", mode="w") as o_file:
         json.dump(sched_data, o_file)
 
 
@@ -91,3 +92,5 @@ def dozent_translate(name: str):
     if name not in unknown_dozent:
         unknown_dozent.append(name)
         return "unknown (" + name + ")"
+
+
