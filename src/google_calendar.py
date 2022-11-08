@@ -49,9 +49,10 @@ def update_schedule(creds):
         for event_data in unorderd_data:
             if event_data['instructor'] is None:
                 event_data['instructor'] = " "
+                print("no instructor")
             description = event_data['instructor'] + " " + event_data['remarks']
-            datetime_start = event_data['date'] + 'T' + event_data['start']
-            datetime_end = event_data['date'] + 'T' + event_data['end']
+            datetime_start = event_data['date'] + 'T' + event_data['start'] + ':00+01:00'
+            datetime_end = event_data['date'] + 'T' + event_data['end'] + ':00+01:00'
             event = {
                 'summary': event_data['title'],
                 'location': event_data['room'],
@@ -65,10 +66,9 @@ def update_schedule(creds):
                     'timeZone': 'Europe/Zurich'
                 }
             }
-
             service.events().insert(
                 calendarId='11736a3d9cda7935cf0c1b9e18b6ef6c6cb34c01fa1b49f6bd0f2f7bb1dabe1a@group.calendar.google.com',
-                body=event
+                body=event,
             ).execute()
 
     except HttpError as error:

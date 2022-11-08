@@ -10,5 +10,4 @@ if __name__ == "__main__":
             userdata = json.load(json_file)
         download_full_schedule(userdata["userid"], userdata["userhash"])
         update_schedule(get_creds())
-        time.sleep(86400)  # repeate once a day
-
+        time.sleep(86400)  # repeat once a day
