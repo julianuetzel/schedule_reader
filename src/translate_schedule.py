@@ -89,7 +89,7 @@ def dozent_translate(name: str):
                 if PREPEND_TITLES:
                     return dozent["title"] + " " + dozent["name"]
                 return dozent["name"]
-    if name not in unknown_dozent:
+    if name not in dozents and not unknown_dozent:
         unknown_dozent.append(name)
         return "unknown (" + name + ")"
 

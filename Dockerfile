@@ -4,7 +4,8 @@ RUN apt-get update -y \
     && apt-get install -y \
     && apt-get clean
 
-COPY ./equirements.txt /app/requirements.txt
+COPY ./requirements.txt /app/requirements.txt
+COPY ./src/config /app/config
 
 RUN pip install --user -r /app/requirements.txt
 
@@ -19,7 +20,7 @@ RUN apt-get update -y \
     && apt-get clean
 
 COPY --from=builder /root/.local /root/.local
-COPY --from=builder /app/app
+COPY --from=builder /app /app
 
 ENV PATH=/root/.local/bin:$PATH
 ENV PYTHONPATH=/app:$PYTHONPATH

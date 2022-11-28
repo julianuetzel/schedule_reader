@@ -35,15 +35,24 @@ def update_schedule(creds):
         unorderd_data = json.load(file)
 
     try:
-        service = build('calendar', 'v3', credentials=creds)
-        old_events = service.events().list(
-            calendarId='11736a3d9cda7935cf0c1b9e18b6ef6c6cb34c01fa1b49f6bd0f2f7bb1dabe1a@group.calendar.google.com',
-        ).execute()
+        all_events = list()
+        page_token = None
+        while True:
+            service = build('calendar', 'v3', credentials=creds)
+            events = service.events().list(
+                calendarId='be9434ea5b1ebfd65d13472b8500ea69363b126a2e8fbab440fd055e2ea4c89a@group.calendar.google.com',
+                pageToken=page_token
+            ).execute()
+            for event in events['items']:
+                all_events.append(event)
+            page_token = events.get('nextPageToken')
+            if not page_token:
+                break
 
-        for item in old_events['items']:
+        for event in all_events:
             service.events().delete(
-                calendarId='11736a3d9cda7935cf0c1b9e18b6ef6c6cb34c01fa1b49f6bd0f2f7bb1dabe1a@group.calendar.google.com',
-                eventId=item['id']
+                calendarId='be9434ea5b1ebfd65d13472b8500ea69363b126a2e8fbab440fd055e2ea4c89a@group.calendar.google.com',
+                eventId=event.get("id")
             ).execute()
 
         for event_data in unorderd_data:
@@ -67,7 +76,7 @@ def update_schedule(creds):
                 }
             }
             service.events().insert(
-                calendarId='11736a3d9cda7935cf0c1b9e18b6ef6c6cb34c01fa1b49f6bd0f2f7bb1dabe1a@group.calendar.google.com',
+                calendarId='be9434ea5b1ebfd65d13472b8500ea69363b126a2e8fbab440fd055e2ea4c89a@group.calendar.google.com',
                 body=event,
             ).execute()
 
